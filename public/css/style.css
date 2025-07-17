@@ -44,7 +44,7 @@ body {
     overflow-x: hidden;
 }
 
-/* 指定背景图片 */
+/* 指定背景图片 - 旋转180度 */
 .dynamic-bg {
     position: fixed;
     top: 0;
@@ -57,6 +57,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    transform: rotate(180deg);
 }
 
 /* 背景叠加层 - 优雅的半透明蒙版 */
