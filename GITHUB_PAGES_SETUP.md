@@ -36,7 +36,19 @@ git push -u origin main
 ### 3. 启用GitHub Pages
 1. 进入仓库：`Settings > Pages`
 2. 选择部署源：`GitHub Actions`
-3. 等待2-3分钟生效
+3. 确保以下设置：
+   - 分支：`main`
+   - 文件夹：`/.github/workflows`
+   - 权限：已授予GitHub Actions写入权限
+4. 等待2-3分钟生效
+
+### 4. 权限设置（重要）
+如果遇到权限错误：
+1. 进入仓库：`Settings > Actions > General`
+2. 找到"Workflow permissions"
+3. 选择"Read and write permissions"
+4. 勾选"Allow GitHub Actions to create and approve pull requests"
+5. 保存更改
 
 ### 4. 验证部署
 访问：https://lerfoe.github.io/
