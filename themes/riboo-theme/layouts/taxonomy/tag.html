@@ -1,0 +1,31 @@
+{{ define "main" }}
+<section class="taxonomy-section">
+    <div class="container">
+        <header class="taxonomy-header">
+            <h1 class="taxonomy-title">标签: {{ .Title }}</h1>
+            <p class="taxonomy-count">共 {{ len .Pages }} 篇文章</p>
+        </header>
+
+        <div class="posts-grid">
+            {{ range .Pages }}
+            <article class="post-card" data-post="{{ .File.BaseFileName }}">
+                <div class="card-glow"></div>
+                <div class="card-content">
+                    <div class="card-tags">
+                        {{ range .Params.tags }}
+                        <span class="card-tag">{{ . }}</span>
+                        {{ end }}
+                    </div>
+                    <h3 class="card-title">{{ .Title }}</h3>
+                    <p class="card-excerpt">{{ .Summary | truncate 120 }}</p>
+                    <div class="card-meta">
+                        <time class="card-date">{{ .Date.Format "2006年1月2日" }}</time>
+                        <span class="card-reading-time">{{ .ReadingTime }}分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}

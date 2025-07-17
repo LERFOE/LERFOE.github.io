@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+    <meta name="description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="keywords" content="{{ if .Keywords }}{{ delimit .Keywords ", " }}{{ else }}{{ delimit .Site.Params.keywords ", " }}{{ end }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    {{ $style := resources.Get "css/style.css" }}
+    {{ if hugo.IsProduction }}
+        {{ $style = $style | resources.Minify }}
+    {{ end }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ "favicon.ico" | relURL }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ .Permalink }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="dynamic-bg">
+        <div class="bg-overlay"></div>
+        <div class="bg-particles"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+            </div>
+            <div class="nav-menu">
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL | relURL }}" class="nav-link">{{ .Name }}</a>
+                {{ end }}
+            </div>
+            <div class="nav-search">
+                <input type="text" id="search-input" placeholder="搜索文章..." class="search-input">
+                <div class="search-results" id="search-results"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p>&copy; {{ now.Year }} {{ .Site.Title }} · 清爽的文字空间</p>
+        </div>
+    </footer>
+
+    <!-- 文章详情模态框 -->
+    <div class="article-modal" id="article-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="article-content" id="article-content"></div>
+        </div>
+    </div>
+
+    <!-- 目录模态框 -->
+    <div class="toc-modal" id="toc-modal">
+        <div class="toc-content">
+            <button class="toc-close" id="toc-close">&times;</button>
+            <h3>目录</h3>
+            <nav class="toc-nav" id="toc-nav"></nav>
+        </div>
+    </div>
+
+    <!-- 脚本 -->
+    {{ $js := resources.Get "js/main.js" }}
+    {{ if hugo.IsProduction }}
+        {{ $js = $js | resources.Minify }}
+    {{ end }}
+    <script src="{{ $js.RelPermalink }}"></script>
+</body>
+</html>

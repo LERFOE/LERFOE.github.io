@@ -1,0 +1,59 @@
+baseURL: 'http://localhost:1313/'
+languageCode: 'zh-CN'
+title: 'Riboo with Temboo'
+theme: 'riboo-theme'
+
+params:
+  description: '清爽优雅的笔记展示空间'
+  author: 'Riboo & Temboo'
+  keywords: ['设计', '哲学', '社会观察', '技术', '生活感悟']
+  social:
+    twitter: '@riboo_temboo'
+    email: 'hello@riboo-temboo.space'
+
+menu:
+  main:
+    - name: '首页'
+      url: '/'
+      weight: 10
+    - name: '文章'
+      url: '/posts/'
+      weight: 20
+    - name: '关于'
+      url: '/about/'
+      weight: 30
+
+taxonomies:
+  tag: 'tags'
+  category: 'categories'
+
+permalinks:
+  posts: '/:year/:month/:title/'
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: github
+    lineNos: true
+    codeFences: true
+
+build:
+  writeStats: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+  page:
+    - HTML
+  section:
+    - HTML
+    - RSS
+  taxonomy:
+    - HTML
+    - RSS
+  term:
+    - HTML
+    - RSS

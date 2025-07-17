@@ -1,0 +1,197 @@
+{{ define "main" }}
+<!-- 英雄区域 -->
+<section class="hero-section">
+    <div class="hero-container">
+        <h1 class="hero-title">{{ .Site.Title }}</h1>
+        <p class="hero-subtitle">{{ .Site.Params.description }}</p>
+    </div>
+</section>
+
+<!-- 标签云 -->
+<section class="tags-section">
+    <div class="container">
+        <h2 class="section-title">热门标签</h2>
+        <div class="tags-cloud">
+            {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+            <a href="{{ "/tags/" | relURL }}{{ $name | urlize }}" class="tag-link" data-tag="{{ $name }}">
+                <span class="tag-name">{{ $name }}</span>
+                <span class="tag-count">{{ len $taxonomy }}</span>
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<!-- 文章列表 - 分类卡片布局 -->
+<section class="posts-section">
+    <div class="container">
+        <div class="category-header">
+            <h2 class="category-title">精选笔记</h2>
+            <p class="category-subtitle">探索思想与设计的交汇点</p>
+        </div>
+
+        <!-- 设计哲学分类 -->
+        <div class="category-section">
+            <h3 class="category-section-title">设计思考</h3>
+            <div class="posts-grid">
+                {{ range where .Site.RegularPages "Type" "posts" }}
+                {{ if in .Params.tags "设计" }}
+                <article class="post-card" data-post="{{ .File.BaseFileName }}">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-tags">
+                                {{ range first 2 .Params.tags }}
+                                <span class="card-tag">{{ . }}</span>
+                                {{ end }}
+                            </div>
+                            <time class="card-date">{{ .Date.Format "1月2日" }}</time>
+                        </div>
+                        
+                        <h3 class="card-title">{{ .Title }}</h3>
+                        <p class="card-excerpt">{{ .Summary | truncate 100 }}</p>
+                        
+                        <div class="card-footer">
+                            <span class="card-reading-time">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                {{ .ReadingTime }}分钟
+                            </span>
+                            <span class="card-arrow">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                {{ end }}
+                {{ end }}
+            </div>
+        </div>
+
+        <!-- 社会观察分类 -->
+        <div class="category-section">
+            <h3 class="category-section-title">社会观察</h3>
+            <div class="posts-grid">
+                {{ range where .Site.RegularPages "Type" "posts" }}
+                {{ if in .Params.tags "社会观察" }}
+                <article class="post-card" data-post="{{ .File.BaseFileName }}">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-tags">
+                                {{ range first 2 .Params.tags }}
+                                <span class="card-tag">{{ . }}</span>
+                                {{ end }}
+                            </div>
+                            <time class="card-date">{{ .Date.Format "1月2日" }}</time>
+                        </div>
+                        
+                        <h3 class="card-title">{{ .Title }}</h3>
+                        <p class="card-excerpt">{{ .Summary | truncate 100 }}</p>
+                        
+                        <div class="card-footer">
+                            <span class="card-reading-time">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                {{ .ReadingTime }}分钟
+                            </span>
+                            <span class="card-arrow">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                {{ end }}
+                {{ end }}
+            </div>
+        </div>
+
+        <!-- 用户体验分类 -->
+        <div class="category-section">
+            <h3 class="category-section-title">用户体验</h3>
+            <div class="posts-grid">
+                {{ range (.Paginate (where .Site.RegularPages "Type" "posts")).Pages }}
+                <article class="post-card" data-post="{{ .File.BaseFileName }}">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <div class="card-tags">
+                                {{ range first 2 .Params.tags }}
+                                <span class="card-tag">{{ . }}</span>
+                                {{ end }}
+                            </div>
+                            <time class="card-date">{{ .Date.Format "1月2日" }}</time>
+                        </div>
+                        
+                        <h3 class="card-title">{{ .Title }}</h3>
+                        <p class="card-excerpt">{{ .Summary | truncate 100 }}</p>
+                        
+                        <div class="card-footer">
+                            <span class="card-reading-time">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                {{ .ReadingTime }}分钟
+                            </span>
+                            <span class="card-arrow">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                {{ end }}
+            </div>
+        </div>
+        
+        <!-- 分页 -->
+        {{ if gt .Paginator.TotalPages 1 }}
+        <nav class="pagination">
+            {{ if .Paginator.HasPrev }}
+            <a href="{{ .Paginator.Prev.URL }}" class="pagination-link">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                上一页
+            </a>
+            {{ end }}
+            
+            {{ range .Paginator.Pagers }}
+            <a href="{{ .URL }}" class="pagination-link{{ if eq . $.Paginator }} active{{ end }}">{{ .PageNumber }}</a>
+            {{ end }}
+            
+            {{ if .Paginator.HasNext }}
+            <a href="{{ .Paginator.Next.URL }}" class="pagination-link">
+                下一页
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </a>
+            {{ end }}
+        </nav>
+        {{ end }}
+    </div>
+</section>
+
+<!-- 目录模态框 -->
+<div class="toc-modal" id="toc-modal">
+    <div class="toc-content">
+        <button class="toc-close" id="toc-close">&times;</button>
+        <h3>目录</h3>
+        <nav class="toc-nav" id="toc-nav"></nav>
+    </div>
+</div>
+{{ end }}
