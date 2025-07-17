@@ -1,4 +1,4 @@
-baseURL: 'http://localhost:1313/'
+baseURL: 'https://lerfoe.github.io/'
 languageCode: 'zh-CN'
 title: 'Riboo with Temboo'
 theme: 'riboo-theme'
